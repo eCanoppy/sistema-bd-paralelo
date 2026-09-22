@@ -1,0 +1,4 @@
+bin/
+*.fifo
+banco.txt
+servidor.log
