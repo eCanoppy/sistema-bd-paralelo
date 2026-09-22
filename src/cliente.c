@@ -40,13 +40,8 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    /* O_RDWR (nao O_RDONLY): abrir soh para leitura nunca bloqueia aqui porque o
-       proprio open() com O_RDONLY sem O_NONBLOCK ficaria esperando um escritor
-       already conectado -- e pior, mesmo registrando como leitor antes, um read()
-       bloqueante em FIFO retorna EOF na hora se NENHUM escritor estiver conectado
-       *no momento da chamada* (nao espera um futuro escritor aparecer). Abrindo
-       O_RDWR o proprio cliente conta como seu escritor, garantindo que o read()
-       abaixo bloqueie de verdade ate a resposta do servidor chegar. */
+    /* O_RDWR pra contar como meu proprio escritor -- senao o read() la embaixo
+       retorna EOF na hora, antes do servidor conseguir responder */
     int fd_resp = open(caminho_resposta, O_RDWR);
     if (fd_resp == -1) {
         perror("open resposta");

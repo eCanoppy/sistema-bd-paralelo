@@ -26,13 +26,12 @@ typedef struct {
     int tem_payload;
 } Resposta;
 
-/* Parses "pid|seq|OP|id|nome" into *req. Returns 0 on success, -1 on malformed input. */
+/* le "pid|seq|OP|id|nome" e preenche *req. retorna 0 ok, -1 se invalido */
 int parse_requisicao(const char *linha, Requisicao *req);
 
-/* Formats *req into buf (>= MAX_LINHA bytes), with trailing '\n'. */
 void formatar_requisicao(const Requisicao *req, char *buf, size_t bufsz);
 
-/* Parses "seq|STATUS[|id|nome]" into *resp. Returns 0 on success, -1 on malformed input. */
+/* le "seq|STATUS[|id|nome]" e preenche *resp. retorna 0 ok, -1 se invalido */
 int parse_resposta(const char *linha, Resposta *resp);
 
 void formatar_resposta(const Resposta *resp, char *buf, size_t bufsz);

@@ -17,10 +17,8 @@
 #define TAM_FILA 64
 #define CAMINHO_REQUISICOES "bd_requisicoes.fifo"
 #define CAMINHO_BANCO "banco.txt"
-/* Bem maior que MAX_LINHA: com muitos clientes concorrentes escrevendo quase
-   ao mesmo tempo, um unico read() pode trazer varias mensagens coladas, e o
-   buffer de reconstrucao de linha precisa de folga pra isso -- nao eh o
-   tamanho de UMA linha, eh o acumulo de VARIAS ainda nao processadas. */
+/* maior que MAX_LINHA pq com muitos clientes ao mesmo tempo o read() pode
+   trazer varias mensagens juntas, nao so uma */
 #define TAM_BUFFER_ENTRADA 8192
 
 static volatile sig_atomic_t g_encerrando = 0;
@@ -199,8 +197,7 @@ int main(int argc, char *argv[]) {
            num_threads, CAMINHO_REQUISICOES, (int)getpid());
     fflush(stdout);
 
-    /* O_RDWR (nao so O_RDONLY) mantem o proprio servidor como "escritor" do FIFO,
-       evitando EOF quando nenhum cliente esta conectado no momento. */
+    /* O_RDWR pra nao dar EOF quando nao tem cliente conectado no momento */
     int fd_req = open(CAMINHO_REQUISICOES, O_RDWR);
     if (fd_req == -1) {
         perror("open requisicoes");
@@ -223,8 +220,7 @@ int main(int argc, char *argv[]) {
         if (strlen(sobra) + (size_t)n < sizeof(sobra)) {
             strncat(sobra, temp, sizeof(sobra) - strlen(sobra) - 1);
         } else {
-            /* So acontece se uma unica linha (sem '\n') sozinha ja excedesse
-               8KB, o que nao ocorre com nosso formato de mensagem fixo e curto. */
+            /* so acontece se uma linha sozinha passar de 8KB, nao deveria rolar */
             sobra[0] = '\0';
             fprintf(stderr, "[servidor] linha excedeu o buffer, descartada\n");
             continue;
