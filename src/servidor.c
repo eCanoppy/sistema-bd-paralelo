@@ -17,6 +17,11 @@
 #define TAM_FILA 64
 #define CAMINHO_REQUISICOES "bd_requisicoes.fifo"
 #define CAMINHO_BANCO "banco.txt"
+/* Bem maior que MAX_LINHA: com muitos clientes concorrentes escrevendo quase
+   ao mesmo tempo, um unico read() pode trazer varias mensagens coladas, e o
+   buffer de reconstrucao de linha precisa de folga pra isso -- nao eh o
+   tamanho de UMA linha, eh o acumulo de VARIAS ainda nao processadas. */
+#define TAM_BUFFER_ENTRADA 8192
 
 static volatile sig_atomic_t g_encerrando = 0;
 
@@ -203,9 +208,9 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    char sobra[MAX_LINHA] = "";
+    char sobra[TAM_BUFFER_ENTRADA] = "";
     while (!g_encerrando) {
-        char temp[MAX_LINHA];
+        char temp[TAM_BUFFER_ENTRADA];
         ssize_t n = read(fd_req, temp, sizeof(temp) - 1);
         if (n <= 0) {
             if (n == -1 && errno == EINTR) continue;
@@ -218,6 +223,8 @@ int main(int argc, char *argv[]) {
         if (strlen(sobra) + (size_t)n < sizeof(sobra)) {
             strncat(sobra, temp, sizeof(sobra) - strlen(sobra) - 1);
         } else {
+            /* So acontece se uma unica linha (sem '\n') sozinha ja excedesse
+               8KB, o que nao ocorre com nosso formato de mensagem fixo e curto. */
             sobra[0] = '\0';
             fprintf(stderr, "[servidor] linha excedeu o buffer, descartada\n");
             continue;
