@@ -2,9 +2,7 @@
 title: "Sistema de Processamento Paralelo de Requisições a um Banco de Dados"
 subtitle: "Avaliação M1 — IPC, Threads e Paralelismo — Sistemas Operacionais"
 author:
-  - Eduardo Mateus Ferreira
-  - "[NOME COMPLETO 2] — [RA]"
-  - "[NOME COMPLETO 3] — [RA]"
+  - "Eduardo Mateus Ferreira — RA 7962053"
 date: "Universidade do Vale do Itajaí (Univali) — Setembro de 2026"
 lang: pt-BR
 geometry: margin=2.5cm
@@ -16,8 +14,8 @@ fontsize: 11pt
 **Trabalho:** Avaliação M1 — IPC, Threads e Paralelismo, disciplina de
 Sistemas Operacionais, Universidade do Vale do Itajaí (Univali).
 
-**Autores:** Eduardo Mateus Ferreira, [NOME COMPLETO 2] ([RA]),
-[NOME COMPLETO 3] ([RA]).
+**Autor:** Eduardo Mateus Ferreira (RA 7962053). Trabalho desenvolvido
+individualmente.
 
 **Repositório público do código:** https://github.com/eCanoppy/sistema-bd-paralelo
 
