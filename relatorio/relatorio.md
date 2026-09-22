@@ -19,7 +19,7 @@ Sistemas Operacionais, Universidade do Vale do Itajaí (Univali).
 **Autores:** Eduardo Mateus Ferreira, [NOME COMPLETO 2] ([RA]),
 [NOME COMPLETO 3] ([RA]).
 
-**Repositório público do código:** [URL DO REPOSITÓRIO GITHUB]
+**Repositório público do código:** https://github.com/eCanoppy/sistema-bd-paralelo
 
 # 2. Enunciado do projeto
 
