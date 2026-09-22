@@ -14,8 +14,7 @@ fontsize: 11pt
 **Trabalho:** Avaliação M1 — IPC, Threads e Paralelismo, disciplina de
 Sistemas Operacionais, Universidade do Vale do Itajaí (Univali).
 
-**Autor:** Eduardo Mateus Ferreira (RA 7962053). Trabalho desenvolvido
-individualmente.
+**Autor:** Eduardo Mateus Ferreira (RA 7962053).
 
 **Repositório público do código:** https://github.com/eCanoppy/sistema-bd-paralelo
 
